@@ -21,9 +21,13 @@
 
   <p>An example of using <code>&lt;my-facebook-login></code>:</p>
 
-  <my-facebook-login>
-    <h2>Hello my-facebook-login</h2>
-  </my-facebook-login>
+
+  <my-facebook-login appID="402163986606199"></my-facebook-login>
+  <script>
+      document.querySelector('my-facebook-login').addEventListener('facebook-connected', function (e) {
+        console.log(e.type, e.detail.response);
+      });
+  </script>
 
 </body>
 </html>
