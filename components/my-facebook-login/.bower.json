@@ -1,0 +1,36 @@
+{
+  "name": "my-facebook-login",
+  "authors": [
+    "Paul Wozniak <wozniak.paull@gmail.com>"
+  ],
+  "description": "My implementation of the facebook login button.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "facebook"
+  ],
+  "main": "my-facebook-login.html",
+  "license": "MIT",
+  "homepage": "https://github.com/iwozzy/my-facebook-login/",
+  "ignore": [
+    "/.*",
+    "/tests/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5.1"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^2.0.0-rc1"
+  },
+  "_release": "feef7cc761",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "feef7cc761a58d3a53b0ff0a00417e2c3eac1cab"
+  },
+  "_source": "git://github.com/iwozzy/my-facebook-login.git",
+  "_target": "master",
+  "_originalSource": "iwozzy/my-facebook-login",
+  "_direct": true
+}

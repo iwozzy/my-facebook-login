@@ -1,0 +1,198 @@
+
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <my-facebook-login></my-facebook-login>
+
+@element my-facebook-login
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://polymerlabs.github.io/my-facebook-login
+-->
+<polymer-element name="my-facebook-login" attributes="appID version scopes">
+
+  <template>
+    <link rel="stylesheet" href="my-facebook-login.css">
+
+    <div id='fblogincontainer'>
+      <fb:login-button scope="{{FB_APP_SCOPES}}" onlogin="FB.checkLoginState()" data-auto-logout-link="true">{{buttonText}}</fb:login-button>
+    </div>
+
+    <div id="status"></div>
+  </template>
+
+  <script>
+
+    (function() {
+
+      function statusChangeCallback(response) {
+
+        if (response.status === 'connected') {
+          handler.fireConnected(response);
+        } else if (response.status === 'not_authorized') {
+          handler.$.status.innerHTML = 'Please log ' + 'into this app.';
+          handler.fireNotAuthorized(response);
+        } else {
+          handler.$.status.innerHTML = 'Please log ' + 'into Facebook.';
+          handler.fireNotLoggedIn(response);
+        }
+
+      }
+
+      var FB_APP_ID = '';
+      var handler;
+
+      Polymer({
+        /**
+         * The `version` attribute sets an initial version
+         *
+         * @attribute version
+         * @type string
+         * @default 'v2.2'
+         */
+        version: 'v2.2',
+
+        /**
+         * The `scopes` attribute sets the initial scopes
+         *
+         * @attribute scopes
+         * @type string
+         * @default 'public_profile'
+         */
+        scopes: 'public_profile',
+
+        ready: function() {
+
+          if(!this.appID) {
+            console.error("Missing attribute appID for Facebook Login Button");
+            return;
+          };
+
+          handler = this;
+          FB_APP_ID = this.appID;
+          FB_APP_VERSION = this.version;
+          handler.FB_APP_SCOPES = this.scopes.split(' ').join(',');
+
+          var container = this.$.fblogincontainer;
+
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : FB_APP_ID,
+              cookie     : true,
+              xfbml      : true,
+              version    : FB_APP_VERSION
+            });
+
+            // Now that we've initialized the JavaScript SDK, we call 
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
+
+            FB.getLoginStatus(function(response) {
+              statusChangeCallback(response);
+            });
+
+            FB.XFBML.parse(container);
+
+            FB.checkLoginState = function () {
+              console.log("my bitch");
+              FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+              });
+            };
+
+          };
+
+          if(typeof(FB) == 'undefined') {
+              (function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/sdk.js";
+                  fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
+          }
+
+        },
+
+        /**
+         * The `my-facebook-login-lasers-success` event is fired whenever we
+         * call fireLasers.
+         *
+         * @event my-facebook-login-lasers-success
+         * @param {Object} detail
+         * @param {string} detail.sound An amazing sound.
+         */
+
+        /**
+         * The `fireLasers` method will fire the lasers. At least
+         * it will dispatch an event that claims lasers were fired :)
+         *
+         * @method fireLasers
+         */
+        fireLasers: function() {
+          this.fire('my-facebook-login-lasers-success', { sound: 'Pew pew pew!' });
+        },
+
+        /**
+         * The 'facebook-connected' event is fired when the user has successfully logged 
+         * Facebook and your app.
+         * @event facebook-connected
+        */
+
+        /**
+         * The 'fireConnected' method will fire the 'facebook-connected' event
+         * @method fireConnected
+         */
+        fireConnected : function (response) {
+          this.fire('facebook-connected', {response: response});
+        },
+
+        /**
+         * The 'facebook-not-authorized' event is fired when the user has successfully logged 
+         * Facebook but not your app.
+         * @event facebook-connected
+        */
+
+        /**
+         * The 'fireNotAuthorized' method will fire the 'facebook-not-authorized' event
+         * @method fireNotAuthorized
+         */
+
+        fireNotAuthorized : function (response) {
+          this.fire('facebook-not-authorized', {response: response});
+        },
+
+        /**
+         * The 'facebook-not-logged-in' event is fired when the user is not signed into Facebook 
+         * @event facebook-not-logged-in
+        */
+
+        /**
+         * The 'fireNotLoggedIn' method will fire the 'facebook-not-logged-in' event
+         * @method fireNotLoggedIn
+         */
+
+        fireNotLoggedIn : function (response) {
+          this.fire('facebook-not-logged-in', {response: response})
+        }
+
+      });
+
+    })();
+
+  </script>
+
+</polymer-element>
+

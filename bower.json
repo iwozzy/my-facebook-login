@@ -1,0 +1,7 @@
+{
+  "name": "my-facebook-login#gh-pages",
+  "private": true,
+  "dependencies": {
+    "my-facebook-login": "iwozzy/my-facebook-login#master"
+  }
+}
