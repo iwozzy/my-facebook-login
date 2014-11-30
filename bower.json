@@ -1,19 +1,19 @@
 {
-  "name": "seed-element",
+  "name": "my-facebook-login",
   "version": "0.0.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Paul Wozniak <wozniak.paull@gmail.com>"
   ],
-  "description": "Element providing solution to no problem in particular.",
+  "description": "My implementation of the facebook login button.",
   "keywords": [
     "web-component",
     "web-components",
     "polymer",
-    "seed"
+    "facebook"
   ],
-  "main": "seed-element.html",
+  "main": "my-facebook-login.html",
   "license": "MIT",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/iwozzy/my-facebook-login/",
   "ignore": [
     "/.*",
     "/tests/"
